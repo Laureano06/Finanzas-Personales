@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="App de finanzas personales con presupuesto, cuentas, movimientos y dashboard anual" />
+  <title>Finanzas Personales V5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <span class="eyebrow">Finanzas personales </span>
+        <h1>Tu dinero, organizado.</h1>
+        <p>Presupuesto mensual, cuentas, movimientos y evolución anual en un solo lugar.</p>
+      </div>
+      <div class="hero-badge">$</div>
+    </header>
+
+    <section class="toolbar panel">
+      <div class="month-control">
+        <button id="prev-month" class="icon-btn" type="button">←</button>
+        <div>
+          <span class="section-kicker">Mes activo</span>
+          <input type="month" id="month-picker" />
+        </div>
+        <button id="next-month" class="icon-btn" type="button">→</button>
+      </div>
+      <div id="save-status" class="save-status">Guardado automático activo</div>
+      <div id="month-comparison" class="comparison-chip">Sin datos del mes anterior</div>
+    </section>
+
+    <main>
+      <section class="kpi-grid" aria-label="Resumen del mes">
+        <article class="kpi-card"><span>Ingresos</span><strong id="kpi-income">$0</strong><small id="kpi-income-note">Este mes</small></article>
+        <article class="kpi-card"><span>Gastos</span><strong id="kpi-expenses">$0</strong><small id="kpi-expense-note">Este mes</small></article>
+        <article class="kpi-card"><span>Disponible</span><strong id="kpi-balance">$0</strong><small>Ingresos − gastos</small></article>
+        <article class="kpi-card"><span>Ahorro</span><strong id="kpi-savings">0%</strong><small id="kpi-savings-note">Objetivo no definido</small></article>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="main-column">
+          <section class="panel section-card">
+            <div class="section-heading">
+              <div><span class="section-kicker">01</span><h2>Plan del mes</h2></div>
+              <button id="clear-month" class="btn btn-ghost" type="button">Limpiar mes</button>
+            </div>
+            <div class="plan-grid">
+              <label class="field"><span>Ingreso base</span><input id="base-income" class="currency-input" inputmode="numeric" placeholder="$1.000.000" /></label>
+              <label class="field"><span>Objetivo de ahorro</span><input id="savings-goal" class="currency-input" inputmode="numeric" placeholder="$200.000" /></label>
+            </div>
+            <div class="goal-card">
+              <div><span>Progreso del ahorro</span><strong id="goal-text">Sin objetivo definido</strong></div>
+              <div class="progress"><span id="goal-progress"></span></div>
+            </div>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading">
+              <div><span class="section-kicker">02</span><h2>Nuevo movimiento</h2></div>
+              <span class="helper">Se guarda automáticamente</span>
+            </div>
+            <form id="transaction-form" class="transaction-form">
+              <input id="editing-id" type="hidden" />
+              <label class="field"><span>Tipo</span><select id="transaction-type"><option value="expense">Gasto</option><option value="income">Ingreso</option><option value="transfer">Transferencia</option></select></label>
+              <label class="field"><span>Fecha</span><input id="transaction-date" type="date" required /></label>
+              <label class="field span-2"><span>Descripción</span><input id="transaction-description" type="text" maxlength="60" placeholder="Ej: Supermercado" required /></label>
+              <label class="field"><span>Monto</span><input id="transaction-amount" class="currency-input" inputmode="numeric" placeholder="$25.000" required /></label>
+              <label class="field" id="category-field"><span>Categoría</span><select id="transaction-category"><option>Alquiler</option><option>Comida</option><option>Servicios</option><option>Entretenimiento</option><option>Transporte</option><option>Salud</option><option>Educación</option><option>Compras</option><option>Otros</option></select></label>
+              <label class="field"><span id="account-label">Cuenta</span><select id="transaction-account"></select></label>
+              <label class="field hide" id="to-account-field"><span>Cuenta destino</span><select id="transaction-to-account"></select></label>
+              <label class="check-field" id="recurring-field"><input id="transaction-recurring" type="checkbox" /><span>♻ Movimiento recurrente</span></label>
+              <div class="form-actions span-2"><button class="btn btn-primary" type="submit" id="save-transaction">Agregar movimiento</button><button class="btn btn-ghost hide" type="button" id="cancel-edit">Cancelar edición</button></div>
+            </form>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading">
+              <div><span class="section-kicker">03</span><h2>Movimientos</h2></div>
+              <span id="movement-count" class="helper">0 movimientos</span>
+            </div>
+            <div class="filters">
+              <input id="search-movements" type="search" placeholder="Buscar movimiento..." />
+              <select id="filter-type"><option value="all">Todos los tipos</option><option value="expense">Gastos</option><option value="income">Ingresos</option><option value="transfer">Transferencias</option></select>
+              <select id="filter-account"><option value="all">Todas las cuentas</option></select>
+            </div>
+            <div id="movement-list" class="movement-list"></div>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">04</span><h2>Presupuesto por categoría</h2></div><button id="add-budget-category" type="button" class="btn btn-secondary">+ Categoría</button></div>
+            <div id="budget-list" class="budget-list"></div>
+          </section>
+        </div>
+
+        <aside class="side-column">
+          <section class="panel section-card sticky-card">
+            <div class="section-heading"><div><span class="section-kicker">Cuentas</span><h2>Billeteras</h2></div><button id="add-account" class="icon-btn" type="button">+</button></div>
+            <div id="accounts-list" class="accounts-list"></div>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Distribución</span><h2>Gastos del mes</h2></div></div>
+            <div class="chart-wrap"><canvas id="category-chart"></canvas><p id="category-empty" class="empty-copy">Cargá gastos para ver el gráfico.</p></div>
+            <div id="category-breakdown" class="category-breakdown"></div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="panel section-card annual-section">
+        <div class="section-heading"><div><span class="section-kicker">05</span><h2>Dashboard anual</h2></div><span id="annual-year" class="year-chip"></span></div>
+        <div class="annual-kpis">
+          <div><span>Ingresos</span><strong id="annual-income">$0</strong></div>
+          <div><span>Gastos</span><strong id="annual-expenses">$0</strong></div>
+          <div><span>Ahorro acumulado</span><strong id="annual-savings">$0</strong></div>
+          <div><span>Promedio mensual</span><strong id="annual-average">$0</strong></div>
+          <div><span>Mayor gasto</span><strong id="annual-highest">—</strong></div>
+          <div><span>Top categoría</span><strong id="annual-top-category">—</strong></div>
+        </div>
+        <div class="annual-chart-wrap"><canvas id="annual-chart"></canvas></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="account-dialog" class="modal">
+    <form id="account-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Cuenta</span><h2>Nueva billetera</h2></div><button type="button" class="modal-close" data-close="account-dialog">×</button></div>
+      <label class="field"><span>Nombre</span><input id="account-name" maxlength="30" placeholder="Ej: Mercado Pago" required /></label>
+      <label class="field"><span>Saldo inicial</span><input id="account-opening" class="currency-input" inputmode="numeric" placeholder="$0" /></label>
+      <button class="btn btn-primary" type="submit">Crear cuenta</button>
+    </form>
+  </dialog>
+
+  <dialog id="category-dialog" class="modal">
+    <form id="category-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Presupuesto</span><h2>Nueva categoría</h2></div><button type="button" class="modal-close" data-close="category-dialog">×</button></div>
+      <label class="field"><span>Nombre</span><input id="category-name" maxlength="28" placeholder="Ej: Gimnasio" required /></label>
+      <label class="field"><span>Límite mensual</span><input id="category-limit" class="currency-input" inputmode="numeric" placeholder="$50.000" /></label>
+      <button class="btn btn-primary" type="submit">Agregar categoría</button>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
