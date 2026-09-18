@@ -3,139 +3,393 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="App de finanzas personales con presupuesto, cuentas, movimientos y dashboard anual" />
-  <title>Finanzas Personales V5</title>
+  <meta name="description" content="Panel personal: finanzas, recordatorios y calendario en un solo lugar" />
+  <title>Panel Personal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/finance.css" />
+  <link rel="stylesheet" href="css/reminders.css" />
 </head>
 <body>
   <div class="app-shell">
-    <header class="hero">
-      <div>
-        <span class="eyebrow">Finanzas personales </span>
-        <h1>Tu dinero, organizado.</h1>
-        <p>Presupuesto mensual, cuentas, movimientos y evolución anual en un solo lugar.</p>
-      </div>
-      <div class="hero-actions">
-        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Cambiar a tema claro">🌙</button>
+    <nav class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <div class="sidebar-brand">
         <div class="hero-badge">$</div>
+        <span>Panel Personal</span>
       </div>
-    </header>
+      <button id="search-trigger" class="nav-link" type="button"><span class="nav-icon">🔍</span><span>Buscar</span></button>
+      <button class="nav-link" type="button" data-nav-link="home"><span class="nav-icon">🏠</span><span>Inicio</span></button>
+      <button class="nav-link" type="button" data-nav-link="finanzas"><span class="nav-icon">💰</span><span>Finanzas</span></button>
+      <button class="nav-link" type="button" data-nav-link="recordatorios"><span class="nav-icon">✓</span><span>Recordatorios</span></button>
+      <button class="nav-link" type="button" data-nav-link="calendario"><span class="nav-icon">📅</span><span>Calendario</span></button>
+      <button class="nav-link" type="button" data-nav-link="configuracion"><span class="nav-icon">⚙️</span><span>Configuración</span></button>
+    </nav>
 
-    <section class="toolbar panel">
-      <div class="month-control">
-        <button id="prev-month" class="icon-btn" type="button" aria-label="Mes anterior">←</button>
-        <div>
-          <span class="section-kicker">Mes activo</span>
-          <div class="month-select-group">
-            <select id="month-select-month" aria-label="Mes"></select>
-            <select id="month-select-year" aria-label="Año"></select>
-          </div>
+    <div class="app-body">
+      <header class="topbar">
+        <button id="mobile-menu-toggle" class="icon-btn nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+        <span class="topbar-title">Panel Personal</span>
+        <div class="topbar-actions">
+          <button id="search-trigger-mobile" class="icon-btn" type="button" aria-label="Buscar">🔍</button>
+          <button id="theme-toggle" class="icon-btn" type="button" aria-label="Cambiar a tema claro">🌙</button>
         </div>
-        <button id="next-month" class="icon-btn" type="button" aria-label="Mes siguiente">→</button>
-      </div>
-      <div id="save-status" class="save-status">Guardado automático activo</div>
-      <div id="month-comparison" class="comparison-chip">Sin datos del mes anterior</div>
-      <div class="data-actions">
-        <button id="export-data" class="btn btn-ghost" type="button">Exportar datos</button>
-        <button id="import-data" class="btn btn-ghost" type="button">Importar datos</button>
-        <input id="import-file" type="file" accept="application/json" class="hide" aria-label="Elegir archivo de backup" />
-      </div>
-    </section>
+      </header>
 
-    <main>
-      <section class="kpi-grid" aria-label="Resumen del mes">
-        <article class="kpi-card"><span>Ingresos</span><strong id="kpi-income">$0</strong><small id="kpi-income-note">Este mes</small></article>
-        <article class="kpi-card"><span>Gastos</span><strong id="kpi-expenses">$0</strong><small id="kpi-expense-note">Este mes</small></article>
-        <article class="kpi-card"><span>Disponible</span><strong id="kpi-balance">$0</strong><small>Ingresos − gastos</small></article>
-        <article class="kpi-card"><span>Ahorro</span><strong id="kpi-savings">0%</strong><small id="kpi-savings-note">Objetivo no definido</small></article>
-      </section>
+      <main id="app-main">
+        <!-- HOME -->
+        <section class="view active" data-view="home">
+          <div class="home-header">
+            <div>
+              <span id="home-greeting" class="section-kicker">Buenas tardes</span>
+              <h1>¿Qué querés gestionar?</h1>
+            </div>
+          </div>
 
-      <section class="workspace-grid">
-        <div class="main-column">
+          <div class="module-grid">
+            <button class="module-card" type="button" data-nav="finanzas">
+              <span class="module-icon">💰</span>
+              <strong>Finanzas</strong>
+              <p>Controlá ingresos, gastos, cuentas y presupuestos.</p>
+            </button>
+            <button class="module-card" type="button" data-nav="recordatorios">
+              <span class="module-icon">✓</span>
+              <strong>Recordatorios</strong>
+              <p>Organizá tareas y cosas que no querés olvidar.</p>
+            </button>
+            <button class="module-card" type="button" data-nav="calendario">
+              <span class="module-icon">📅</span>
+              <strong>Calendario</strong>
+              <p>Visualizá tus próximos eventos.</p>
+            </button>
+            <button class="module-card" type="button" data-nav="configuracion">
+              <span class="module-icon">⚙️</span>
+              <strong>Configuración</strong>
+              <p>Backup, tema, notificaciones y más.</p>
+            </button>
+          </div>
+
+          <div class="home-widgets">
+            <section class="panel widget-card" data-nav="finanzas">
+              <div class="section-heading"><div><span class="section-kicker">Finanzas</span><h2>Resumen del mes</h2></div></div>
+              <div class="widget-stats">
+                <div><span>Saldo disponible</span><strong id="widget-balance">$0</strong></div>
+                <div><span>Gastos del mes</span><strong id="widget-expenses">$0</strong></div>
+                <div><span>Ahorro</span><strong id="widget-savings">0%</strong></div>
+              </div>
+            </section>
+
+            <section class="panel widget-card" data-nav="recordatorios">
+              <div class="section-heading"><div><span class="section-kicker">Recordatorios</span><h2 id="widget-reminders-count">0 pendientes</h2></div></div>
+              <ul id="widget-reminders-list" class="widget-list"></ul>
+            </section>
+
+            <section class="panel widget-card" data-nav="calendario">
+              <div class="section-heading"><div><span class="section-kicker">Próximo</span><h2 id="widget-next-title">Sin eventos</h2></div></div>
+              <p id="widget-next-meta" class="helper"></p>
+            </section>
+          </div>
+
           <section class="panel section-card">
-            <div class="section-heading">
-              <div><span class="section-kicker">01</span><h2>Plan del mes</h2></div>
+            <div class="section-heading"><div><span class="section-kicker">Insights</span><h2>Tu actividad</h2></div></div>
+            <ul id="home-insights-list" class="insights-list"></ul>
+          </section>
+        </section>
+
+        <!-- FINANZAS -->
+        <section class="view" data-view="finanzas">
+          <div class="view-header">
+            <div>
+              <span class="section-kicker">Finanzas</span>
+              <h1>Tu dinero, organizado.</h1>
+              <p>Presupuesto mensual, cuentas, movimientos y evolución anual.</p>
+            </div>
+          </div>
+
+          <div class="finance-subnav" role="tablist">
+            <button class="subnav-btn active" type="button" data-finance-tab="resumen">Resumen</button>
+            <button class="subnav-btn" type="button" data-finance-tab="tarjetas">Tarjetas</button>
+            <button class="subnav-btn" type="button" data-finance-tab="suscripciones">Suscripciones</button>
+            <button class="subnav-btn" type="button" data-finance-tab="deudas">Deudas</button>
+          </div>
+
+          <div class="finance-subview active" data-finance-subview="resumen">
+          <section class="toolbar panel">
+            <div class="month-control">
+              <button id="prev-month" class="icon-btn" type="button" aria-label="Mes anterior">←</button>
+              <div>
+                <span class="section-kicker">Mes activo</span>
+                <div class="month-select-group">
+                  <select id="month-select-month" aria-label="Mes"></select>
+                  <select id="month-select-year" aria-label="Año"></select>
+                </div>
+              </div>
+              <button id="next-month" class="icon-btn" type="button" aria-label="Mes siguiente">→</button>
+            </div>
+            <div id="month-comparison" class="comparison-chip">Sin datos del mes anterior</div>
+            <div class="data-actions">
+              <button id="export-current-month" class="btn btn-ghost" type="button">Exportar mes actual</button>
+              <button id="export-all" class="btn btn-ghost" type="button">Exportar todo (CSV)</button>
+              <button id="import-csv-btn" class="btn btn-ghost" type="button">Importar CSV</button>
+              <input id="import-csv-input" type="file" accept=".csv,text/csv" class="hide" aria-label="Elegir archivo CSV" />
               <button id="clear-month" class="btn btn-ghost" type="button">Limpiar mes</button>
             </div>
-            <div class="plan-grid">
-              <label class="field"><span>Ingreso base</span><input id="base-income" class="currency-input" inputmode="numeric" placeholder="$1.000.000" /></label>
-              <label class="field"><span>Objetivo de ahorro</span><input id="savings-goal" class="currency-input" inputmode="numeric" placeholder="$200.000" /></label>
+          </section>
+
+          <section class="kpi-grid" aria-label="Resumen del mes">
+            <article class="kpi-card"><span>Ingresos</span><strong id="kpi-income">$0</strong><small>Este mes</small></article>
+            <article class="kpi-card"><span>Gastos</span><strong id="kpi-expenses">$0</strong><small>Este mes</small></article>
+            <article class="kpi-card"><span>Disponible</span><strong id="kpi-balance">$0</strong><small>Ingresos − gastos</small></article>
+            <article class="kpi-card"><span>Ahorro</span><strong id="kpi-savings">0%</strong><small id="kpi-savings-note">Objetivo no definido</small></article>
+          </section>
+
+          <section class="workspace-grid">
+            <div class="main-column">
+              <section class="panel section-card">
+                <div class="section-heading">
+                  <div><span class="section-kicker">01</span><h2>Plan del mes</h2></div>
+                </div>
+                <div class="plan-grid">
+                  <label class="field"><span>Ingreso base</span><input id="base-income" class="currency-input" inputmode="numeric" placeholder="$1.000.000" /></label>
+                  <label class="field"><span>Objetivo de ahorro</span><input id="savings-goal" class="currency-input" inputmode="numeric" placeholder="$200.000" /></label>
+                </div>
+                <div class="goal-card">
+                  <div><span>Progreso del ahorro</span><strong id="goal-text">Sin objetivo definido</strong></div>
+                  <div class="progress"><span id="goal-progress"></span></div>
+                </div>
+              </section>
+
+              <section class="panel section-card">
+                <div class="section-heading">
+                  <div><span class="section-kicker">02</span><h2>Nuevo movimiento</h2></div>
+                  <span class="helper">Se guarda automáticamente</span>
+                </div>
+                <form id="transaction-form" class="transaction-form">
+                  <input id="editing-id" type="hidden" />
+                  <label class="field"><span>Tipo</span><select id="transaction-type"><option value="expense">Gasto</option><option value="income">Ingreso</option><option value="transfer">Transferencia</option></select></label>
+                  <label class="field"><span>Fecha</span><input id="transaction-date" type="date" required /></label>
+                  <label class="field span-2"><span>Descripción</span><input id="transaction-description" type="text" maxlength="60" placeholder="Ej: Supermercado" required /></label>
+                  <label class="field"><span>Monto</span><input id="transaction-amount" class="currency-input" inputmode="numeric" placeholder="$25.000" required /></label>
+                  <label class="field" id="category-field"><span>Categoría</span><select id="transaction-category"></select></label>
+                  <label class="field hide" id="payment-method-field"><span>Método de pago</span><select id="transaction-payment-method"><option value="account">Cuenta</option><option value="card">Tarjeta de crédito</option></select></label>
+                  <label class="field" id="account-field"><span id="account-label">Cuenta</span><select id="transaction-account"></select></label>
+                  <label class="field hide" id="card-field"><span>Tarjeta</span><select id="transaction-card"></select></label>
+                  <label class="field hide" id="to-account-field"><span>Cuenta destino</span><select id="transaction-to-account"></select></label>
+                  <label class="field" id="installments-field"><span>Cuotas</span><input id="transaction-installments" type="number" min="1" max="24" value="1" /></label>
+                  <label class="check-field" id="recurring-field"><input id="transaction-recurring" type="checkbox" /><span>♻ Movimiento recurrente</span></label>
+                  <p id="transaction-error" class="form-error hide span-2" role="alert"></p>
+                  <div class="form-actions span-2"><button class="btn btn-primary" type="submit" id="save-transaction">Agregar movimiento</button><button class="btn btn-ghost hide" type="button" id="cancel-edit">Cancelar edición</button></div>
+                </form>
+              </section>
+
+              <section class="panel section-card">
+                <div class="section-heading">
+                  <div><span class="section-kicker">03</span><h2>Movimientos</h2></div>
+                  <span id="movement-count" class="helper">0 movimientos</span>
+                </div>
+                <div class="filters">
+                  <input id="search-movements" type="search" placeholder="Buscar movimiento..." />
+                  <select id="filter-type"><option value="all">Todos los tipos</option><option value="expense">Gastos</option><option value="income">Ingresos</option><option value="transfer">Transferencias</option><option value="card_payment">Pagos de tarjeta</option></select>
+                  <select id="filter-account"><option value="all">Todas las cuentas</option></select>
+                </div>
+                <div id="movement-list" class="movement-list"></div>
+              </section>
+
+              <section class="panel section-card">
+                <div class="section-heading"><div><span class="section-kicker">04</span><h2>Presupuesto por categoría</h2></div><button id="add-budget-category" type="button" class="btn btn-secondary">+ Categoría</button></div>
+                <div id="budget-list" class="budget-list"></div>
+              </section>
             </div>
-            <div class="goal-card">
-              <div><span>Progreso del ahorro</span><strong id="goal-text">Sin objetivo definido</strong></div>
-              <div class="progress"><span id="goal-progress"></span></div>
+
+            <aside class="side-column">
+              <section class="panel section-card sticky-card">
+                <div class="section-heading"><div><span class="section-kicker">Cuentas</span><h2>Billeteras</h2></div><button id="add-account" class="icon-btn" type="button" aria-label="Agregar cuenta">+</button></div>
+                <div id="accounts-list" class="accounts-list"></div>
+              </section>
+
+              <section class="panel section-card">
+                <div class="section-heading"><div><span class="section-kicker">Distribución</span><h2>Gastos del mes</h2></div></div>
+                <div class="chart-wrap"><canvas id="category-chart"></canvas><p id="category-empty" class="empty-copy">Cargá gastos para ver el gráfico.</p></div>
+                <div id="category-breakdown" class="category-breakdown"></div>
+              </section>
+            </aside>
+          </section>
+
+          <section class="panel section-card annual-section">
+            <div class="section-heading"><div><span class="section-kicker">05</span><h2>Dashboard anual</h2></div><span id="annual-year" class="year-chip"></span></div>
+            <div class="annual-kpis">
+              <div><span>Ingresos</span><strong id="annual-income">$0</strong></div>
+              <div><span>Gastos</span><strong id="annual-expenses">$0</strong></div>
+              <div><span>Ahorro acumulado</span><strong id="annual-savings">$0</strong></div>
+              <div><span>Tasa de ahorro</span><strong id="annual-savings-rate">0%</strong></div>
+              <div><span>Promedio mensual</span><strong id="annual-average">$0</strong></div>
+              <div><span>Mayor gasto</span><strong id="annual-highest">—</strong></div>
+              <div><span>Menor gasto</span><strong id="annual-lowest">—</strong></div>
+              <div><span>Top categoría</span><strong id="annual-top-category">—</strong></div>
+            </div>
+            <div class="annual-chart-wrap"><canvas id="annual-chart"></canvas></div>
+
+            <div class="annual-charts-grid">
+              <div class="annual-chart-card">
+                <h3 class="subsection-title">Ahorro mensual</h3>
+                <div class="chart-wrap chart-wrap-sm"><canvas id="annual-savings-chart"></canvas></div>
+              </div>
+              <div class="annual-chart-card">
+                <h3 class="subsection-title">Gasto por categoría (año)</h3>
+                <div class="chart-wrap chart-wrap-sm"><canvas id="annual-category-chart"></canvas><p id="annual-category-empty" class="empty-copy">Sin gastos registrados este año.</p></div>
+              </div>
+              <div class="annual-chart-card">
+                <h3 class="subsection-title">Distribución de cuentas</h3>
+                <div class="chart-wrap chart-wrap-sm"><canvas id="annual-accounts-chart"></canvas><p id="annual-accounts-empty" class="empty-copy">Todavía no creaste ninguna cuenta.</p></div>
+              </div>
+            </div>
+          </section>
+          </div>
+
+          <div class="finance-subview" data-finance-subview="tarjetas">
+            <section class="panel section-card">
+              <div class="section-heading"><div><span class="section-kicker">Tarjetas</span><h2>Tarjetas de crédito</h2></div><button id="add-card" class="btn btn-secondary" type="button">+ Tarjeta</button></div>
+              <p class="helper">Los consumos con tarjeta no descuentan la cuenta hasta que registrás el pago.</p>
+              <div id="cards-list" class="cards-grid"></div>
+            </section>
+          </div>
+
+          <div class="finance-subview" data-finance-subview="suscripciones">
+            <section class="panel section-card">
+              <div class="section-heading"><div><span class="section-kicker">Suscripciones</span><h2>Pagos recurrentes</h2></div><button id="add-subscription" class="btn btn-secondary" type="button">+ Suscripción</button></div>
+              <div class="widget-stats" style="margin-bottom:16px">
+                <div><span>Total mensual</span><strong id="subscriptions-monthly-total">$0</strong></div>
+              </div>
+              <h3 class="subsection-title">Próximos pagos (30 días)</h3>
+              <ul id="subscriptions-upcoming" class="insights-list" style="margin-bottom:18px"></ul>
+              <h3 class="subsection-title">Todas las suscripciones</h3>
+              <div id="subscriptions-list" class="reminder-list"></div>
+            </section>
+          </div>
+
+          <div class="finance-subview" data-finance-subview="deudas">
+            <section class="panel section-card">
+              <div class="section-heading"><div><span class="section-kicker">Deudas</span><h2>Me deben / Debo</h2></div><button id="add-debt" class="btn btn-secondary" type="button">+ Deuda</button></div>
+              <div class="two-col">
+                <div>
+                  <h3 class="subsection-title">Debo <span id="debts-owe-total" class="year-chip">$0</span></h3>
+                  <div id="debts-owe-list" class="reminder-list"></div>
+                </div>
+                <div>
+                  <h3 class="subsection-title">Me deben <span id="debts-owed-total" class="year-chip">$0</span></h3>
+                  <div id="debts-owed-list" class="reminder-list"></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- RECORDATORIOS -->
+        <section class="view" data-view="recordatorios">
+          <div class="view-header">
+            <div>
+              <span class="section-kicker">Recordatorios</span>
+              <h1>Organizá tus pendientes</h1>
+              <p>Lo de hoy primero, lo demás después.</p>
+            </div>
+            <button id="reminder-new-btn" class="btn btn-primary" type="button">+ Nuevo recordatorio</button>
+          </div>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Hoy</span><h2>Pendientes de hoy</h2></div><span id="reminders-today-count" class="helper">0 pendientes</span></div>
+            <div id="reminders-today-list" class="reminder-list"></div>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Próximos</span><h2>Próximos recordatorios</h2></div></div>
+            <div id="reminders-upcoming-list" class="reminder-list"></div>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Historial</span><h2>Completados</h2></div><button id="reminders-clear-completed" class="btn btn-ghost" type="button">Vaciar completados</button></div>
+            <div id="reminders-completed-list" class="reminder-list"></div>
+          </section>
+        </section>
+
+        <!-- CALENDARIO -->
+        <section class="view" data-view="calendario">
+          <div class="view-header">
+            <div>
+              <span class="section-kicker">Calendario</span>
+              <h1>Tus próximos eventos</h1>
+            </div>
+          </div>
+          <section class="panel section-card">
+            <div class="calendar-toolbar">
+              <button id="calendar-prev" class="icon-btn" type="button" aria-label="Mes anterior">←</button>
+              <strong id="calendar-month-label"></strong>
+              <button id="calendar-next" class="icon-btn" type="button" aria-label="Mes siguiente">→</button>
+            </div>
+            <div id="calendar-grid" class="calendar-grid"></div>
+          </section>
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Selección</span><h2 id="calendar-selected-label">Elegí un día</h2></div></div>
+            <div id="calendar-day-events" class="reminder-list"></div>
+          </section>
+        </section>
+
+        <!-- CONFIGURACIÓN -->
+        <section class="view" data-view="configuracion">
+          <div class="view-header">
+            <div>
+              <span class="section-kicker">Configuración</span>
+              <h1>Ajustá tu panel</h1>
+            </div>
+          </div>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Apariencia</span><h2>Tema</h2></div></div>
+            <label class="field"><span>Tema de la aplicación</span>
+              <select id="settings-theme"><option value="dark">Oscuro</option><option value="light">Claro</option></select>
+            </label>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Alertas</span><h2>Notificaciones</h2></div></div>
+            <label class="check-field"><input id="settings-notifications" type="checkbox" /><span>Activar notificaciones del navegador</span></label>
+            <p class="helper">La app funciona igual aunque no actives los permisos.</p>
+          </section>
+
+          <section class="panel section-card">
+            <div class="section-heading"><div><span class="section-kicker">Datos</span><h2>Backup</h2></div></div>
+            <div class="data-actions">
+              <button id="settings-export-backup" class="btn btn-ghost" type="button">Exportar backup</button>
+              <button id="settings-import-btn" class="btn btn-ghost" type="button">Importar backup</button>
+              <input id="settings-import-input" type="file" accept="application/json" class="hide" aria-label="Elegir archivo de backup" />
             </div>
           </section>
 
           <section class="panel section-card">
-            <div class="section-heading">
-              <div><span class="section-kicker">02</span><h2>Nuevo movimiento</h2></div>
-              <span class="helper">Se guarda automáticamente</span>
-            </div>
-            <form id="transaction-form" class="transaction-form">
-              <input id="editing-id" type="hidden" />
-              <label class="field"><span>Tipo</span><select id="transaction-type"><option value="expense">Gasto</option><option value="income">Ingreso</option><option value="transfer">Transferencia</option></select></label>
-              <label class="field"><span>Fecha</span><input id="transaction-date" type="date" required /></label>
-              <label class="field span-2"><span>Descripción</span><input id="transaction-description" type="text" maxlength="60" placeholder="Ej: Supermercado" required /></label>
-              <label class="field"><span>Monto</span><input id="transaction-amount" class="currency-input" inputmode="numeric" placeholder="$25.000" required /></label>
-              <label class="field" id="category-field"><span>Categoría</span><select id="transaction-category"><option>Alquiler</option><option>Comida</option><option>Servicios</option><option>Entretenimiento</option><option>Transporte</option><option>Salud</option><option>Educación</option><option>Compras</option><option>Otros</option></select></label>
-              <label class="field"><span id="account-label">Cuenta</span><select id="transaction-account"></select></label>
-              <label class="field hide" id="to-account-field"><span>Cuenta destino</span><select id="transaction-to-account"></select></label>
-              <label class="check-field" id="recurring-field"><input id="transaction-recurring" type="checkbox" /><span>♻ Movimiento recurrente</span></label>
-              <p id="transaction-error" class="form-error hide span-2" role="alert"></p>
-              <div class="form-actions span-2"><button class="btn btn-primary" type="submit" id="save-transaction">Agregar movimiento</button><button class="btn btn-ghost hide" type="button" id="cancel-edit">Cancelar edición</button></div>
-            </form>
+            <div class="section-heading"><div><span class="section-kicker">Zona de riesgo</span><h2>Reiniciar aplicación</h2></div></div>
+            <p class="helper">Borra todas las finanzas, cuentas y recordatorios guardados en este navegador.</p>
+            <button id="settings-reset-app" class="btn btn-danger" type="button">Borrar todos los datos</button>
           </section>
+        </section>
+      </main>
+    </div>
 
-          <section class="panel section-card">
-            <div class="section-heading">
-              <div><span class="section-kicker">03</span><h2>Movimientos</h2></div>
-              <span id="movement-count" class="helper">0 movimientos</span>
-            </div>
-            <div class="filters">
-              <input id="search-movements" type="search" placeholder="Buscar movimiento..." />
-              <select id="filter-type"><option value="all">Todos los tipos</option><option value="expense">Gastos</option><option value="income">Ingresos</option><option value="transfer">Transferencias</option></select>
-              <select id="filter-account"><option value="all">Todas las cuentas</option></select>
-            </div>
-            <div id="movement-list" class="movement-list"></div>
-          </section>
+    <nav class="bottom-nav" aria-label="Navegación móvil">
+      <button class="nav-link" type="button" data-nav-link="home"><span class="nav-icon">🏠</span><span>Inicio</span></button>
+      <button class="nav-link" type="button" data-nav-link="finanzas"><span class="nav-icon">💰</span><span>Finanzas</span></button>
+      <button class="nav-link" type="button" data-nav-link="recordatorios"><span class="nav-icon">✓</span><span>Tareas</span></button>
+      <button class="nav-link" type="button" data-nav-link="calendario"><span class="nav-icon">📅</span><span>Calendario</span></button>
+      <button class="nav-link" type="button" data-nav-link="configuracion"><span class="nav-icon">⚙️</span><span>Ajustes</span></button>
+    </nav>
 
-          <section class="panel section-card">
-            <div class="section-heading"><div><span class="section-kicker">04</span><h2>Presupuesto por categoría</h2></div><button id="add-budget-category" type="button" class="btn btn-secondary">+ Categoría</button></div>
-            <div id="budget-list" class="budget-list"></div>
-          </section>
-        </div>
-
-        <aside class="side-column">
-          <section class="panel section-card sticky-card">
-            <div class="section-heading"><div><span class="section-kicker">Cuentas</span><h2>Billeteras</h2></div><button id="add-account" class="icon-btn" type="button" aria-label="Agregar cuenta">+</button></div>
-            <div id="accounts-list" class="accounts-list"></div>
-          </section>
-
-          <section class="panel section-card">
-            <div class="section-heading"><div><span class="section-kicker">Distribución</span><h2>Gastos del mes</h2></div></div>
-            <div class="chart-wrap"><canvas id="category-chart"></canvas><p id="category-empty" class="empty-copy">Cargá gastos para ver el gráfico.</p></div>
-            <div id="category-breakdown" class="category-breakdown"></div>
-          </section>
-        </aside>
-      </section>
-
-      <section class="panel section-card annual-section">
-        <div class="section-heading"><div><span class="section-kicker">05</span><h2>Dashboard anual</h2></div><span id="annual-year" class="year-chip"></span></div>
-        <div class="annual-kpis">
-          <div><span>Ingresos</span><strong id="annual-income">$0</strong></div>
-          <div><span>Gastos</span><strong id="annual-expenses">$0</strong></div>
-          <div><span>Ahorro acumulado</span><strong id="annual-savings">$0</strong></div>
-          <div><span>Promedio mensual</span><strong id="annual-average">$0</strong></div>
-          <div><span>Mayor gasto</span><strong id="annual-highest">—</strong></div>
-          <div><span>Top categoría</span><strong id="annual-top-category">—</strong></div>
-        </div>
-        <div class="annual-chart-wrap"><canvas id="annual-chart"></canvas></div>
-      </section>
-    </main>
+    <button id="quickadd-fab" class="fab" type="button" aria-label="Agregar rápido" aria-expanded="false" aria-haspopup="true">+</button>
+    <div id="quickadd-menu" class="quickadd-menu hide" role="menu">
+      <button type="button" role="menuitem" data-quickadd="expense">Nuevo gasto</button>
+      <button type="button" role="menuitem" data-quickadd="income">Nuevo ingreso</button>
+      <button type="button" role="menuitem" data-quickadd="transfer">Nueva transferencia</button>
+      <button type="button" role="menuitem" data-quickadd="reminder">Nuevo recordatorio</button>
+    </div>
   </div>
 
   <dialog id="account-dialog" class="modal">
@@ -156,12 +410,156 @@
     </form>
   </dialog>
 
+  <dialog id="card-dialog" class="modal">
+    <form id="card-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Tarjeta</span><h2>Nueva tarjeta de crédito</h2></div><button type="button" class="modal-close" data-close="card-dialog" aria-label="Cerrar">×</button></div>
+      <label class="field"><span>Nombre</span><input id="card-name" maxlength="30" placeholder="Ej: Visa Santander" required /></label>
+      <label class="field"><span>Banco</span><input id="card-bank" maxlength="30" placeholder="Ej: Santander" /></label>
+      <label class="field"><span>Límite</span><input id="card-limit" class="currency-input" inputmode="numeric" placeholder="$2.000.000" /></label>
+      <div class="plan-grid">
+        <label class="field"><span>Día de cierre</span><input id="card-closing-day" type="number" min="1" max="31" value="25" required /></label>
+        <label class="field"><span>Día de vencimiento</span><input id="card-due-day" type="number" min="1" max="31" value="5" required /></label>
+      </div>
+      <label class="field"><span>Cuenta para pagos</span><select id="card-account"></select></label>
+      <button class="btn btn-primary" type="submit">Crear tarjeta</button>
+    </form>
+  </dialog>
+
+  <dialog id="card-payment-dialog" class="modal">
+    <form id="card-payment-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Pago</span><h2 id="card-payment-title">Pagar tarjeta</h2></div><button type="button" class="modal-close" data-close="card-payment-dialog" aria-label="Cerrar">×</button></div>
+      <input id="card-payment-card-id" type="hidden" />
+      <label class="field"><span>Monto</span><input id="card-payment-amount" class="currency-input" inputmode="numeric" required /></label>
+      <label class="field"><span>Cuenta de pago</span><select id="card-payment-account"></select></label>
+      <label class="field"><span>Fecha</span><input id="card-payment-date" type="date" required /></label>
+      <button class="btn btn-primary" type="submit">Registrar pago</button>
+    </form>
+  </dialog>
+
+  <dialog id="subscription-dialog" class="modal">
+    <form id="subscription-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Suscripción</span><h2>Nueva suscripción</h2></div><button type="button" class="modal-close" data-close="subscription-dialog" aria-label="Cerrar">×</button></div>
+      <label class="field"><span>Nombre</span><input id="subscription-name" maxlength="30" placeholder="Ej: Netflix" required /></label>
+      <div class="plan-grid">
+        <label class="field"><span>Monto</span><input id="subscription-amount" class="currency-input" inputmode="numeric" placeholder="$5.000" required /></label>
+        <label class="field"><span>Categoría</span><input id="subscription-category" maxlength="28" placeholder="Ej: Entretenimiento" /></label>
+      </div>
+      <div class="plan-grid">
+        <label class="field"><span>Frecuencia</span>
+          <select id="subscription-frequency">
+            <option value="monthly">Mensual</option>
+            <option value="yearly">Anual</option>
+          </select>
+        </label>
+        <label class="field"><span>Próximo pago</span><input id="subscription-date" type="date" required /></label>
+      </div>
+      <label class="field"><span>Método de pago</span>
+        <select id="subscription-payment-method">
+          <option value="account">Cuenta</option>
+          <option value="card">Tarjeta de crédito</option>
+        </select>
+      </label>
+      <label class="field" id="subscription-account-field"><span>Cuenta</span><select id="subscription-account"></select></label>
+      <label class="field hide" id="subscription-card-field"><span>Tarjeta</span><select id="subscription-card"></select></label>
+      <button class="btn btn-primary" type="submit">Guardar suscripción</button>
+    </form>
+  </dialog>
+
+  <dialog id="debt-dialog" class="modal">
+    <form id="debt-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Deuda</span><h2>Nueva deuda</h2></div><button type="button" class="modal-close" data-close="debt-dialog" aria-label="Cerrar">×</button></div>
+      <label class="field"><span>Tipo</span>
+        <select id="debt-type">
+          <option value="owe">Yo debo</option>
+          <option value="owed">Me deben</option>
+        </select>
+      </label>
+      <label class="field"><span>Persona / entidad</span><input id="debt-person" maxlength="40" placeholder="Ej: Juan" required /></label>
+      <label class="field"><span>Descripción</span><input id="debt-description" maxlength="80" placeholder="Opcional" /></label>
+      <div class="plan-grid">
+        <label class="field"><span>Monto original</span><input id="debt-amount" class="currency-input" inputmode="numeric" placeholder="$50.000" required /></label>
+        <label class="field"><span>Fecha de vencimiento</span><input id="debt-due-date" type="date" /></label>
+      </div>
+      <button class="btn btn-primary" type="submit">Guardar deuda</button>
+    </form>
+  </dialog>
+
+  <dialog id="debt-payment-dialog" class="modal">
+    <form id="debt-payment-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Pago</span><h2 id="debt-payment-title">Registrar pago</h2></div><button type="button" class="modal-close" data-close="debt-payment-dialog" aria-label="Cerrar">×</button></div>
+      <input id="debt-payment-debt-id" type="hidden" />
+      <label class="field"><span>Monto</span><input id="debt-payment-amount" class="currency-input" inputmode="numeric" required /></label>
+      <button class="btn btn-primary" type="submit">Registrar pago</button>
+    </form>
+  </dialog>
+
+  <dialog id="reminder-dialog" class="modal">
+    <form id="reminder-form" method="dialog" class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Recordatorio</span><h2 id="reminder-dialog-title">Nuevo recordatorio</h2></div><button type="button" class="modal-close" data-close="reminder-dialog" aria-label="Cerrar">×</button></div>
+      <input id="reminder-editing-id" type="hidden" />
+      <label class="field"><span>Título</span><input id="reminder-title" maxlength="60" placeholder="Ej: Pagar Internet" required /></label>
+      <label class="field"><span>Descripción</span><input id="reminder-description" maxlength="140" placeholder="Opcional" /></label>
+      <div class="plan-grid">
+        <label class="field"><span>Fecha</span><input id="reminder-date" type="date" required /></label>
+        <label class="field"><span>Hora</span><input id="reminder-time" type="time" /></label>
+      </div>
+      <div class="plan-grid">
+        <label class="field"><span>Prioridad</span>
+          <select id="reminder-priority">
+            <option value="low">Baja</option>
+            <option value="medium" selected>Media</option>
+            <option value="high">Alta</option>
+          </select>
+        </label>
+        <label class="field"><span>Categoría</span><select id="reminder-category"></select></label>
+      </div>
+      <button class="btn btn-primary" type="submit">Guardar recordatorio</button>
+    </form>
+  </dialog>
+
+  <dialog id="import-dialog" class="modal">
+    <div class="modal-card import-card">
+      <div class="section-heading"><div><span class="section-kicker">Importar</span><h2>Confirmá los movimientos</h2></div><button type="button" class="modal-close" data-close="import-dialog" aria-label="Cerrar">×</button></div>
+      <label class="field"><span>Cuenta destino</span><select id="import-account"></select></label>
+      <p id="import-summary" class="helper"></p>
+      <div class="import-table-wrap">
+        <table class="import-table">
+          <thead><tr><th></th><th>Fecha</th><th>Descripción</th><th>Monto</th><th>Categoría</th></tr></thead>
+          <tbody id="import-table-body"></tbody>
+        </table>
+      </div>
+      <div class="form-actions">
+        <button id="import-confirm" class="btn btn-primary" type="button">Importar movimientos</button>
+        <button class="btn btn-ghost" type="button" data-close="import-dialog">Cancelar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="search-dialog" class="modal">
+    <div class="modal-card search-card">
+      <div class="section-heading"><div><span class="section-kicker">Buscar</span><h2>Buscar en todo el panel</h2></div><button type="button" class="modal-close" data-close="search-dialog" aria-label="Cerrar">×</button></div>
+      <input id="search-input" type="search" placeholder="Netflix, Santander, gimnasio..." autocomplete="off" />
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </dialog>
+
+  <dialog id="confirm-dialog" class="modal">
+    <div class="modal-card">
+      <div class="section-heading"><div><span class="section-kicker">Confirmar</span><h2 id="confirm-title">¿Confirmar?</h2></div></div>
+      <p id="confirm-message" class="helper"></p>
+      <div class="form-actions">
+        <button id="confirm-accept" class="btn btn-danger" type="button">Confirmar</button>
+        <button class="btn btn-ghost" type="button" data-close="confirm-dialog">Cancelar</button>
+      </div>
+    </div>
+  </dialog>
+
   <div id="toast" class="toast hide" role="status" aria-live="polite">
     <span id="toast-message"></span>
     <button id="toast-undo" class="btn btn-ghost hide" type="button">Deshacer</button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
