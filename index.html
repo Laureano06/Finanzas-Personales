@@ -18,20 +18,28 @@
         <h1>Tu dinero, organizado.</h1>
         <p>Presupuesto mensual, cuentas, movimientos y evolución anual en un solo lugar.</p>
       </div>
-      <div class="hero-badge">$</div>
+      <div class="hero-actions">
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Cambiar a tema claro">🌙</button>
+        <div class="hero-badge">$</div>
+      </div>
     </header>
 
     <section class="toolbar panel">
       <div class="month-control">
-        <button id="prev-month" class="icon-btn" type="button">←</button>
+        <button id="prev-month" class="icon-btn" type="button" aria-label="Mes anterior">←</button>
         <div>
           <span class="section-kicker">Mes activo</span>
           <input type="month" id="month-picker" />
         </div>
-        <button id="next-month" class="icon-btn" type="button">→</button>
+        <button id="next-month" class="icon-btn" type="button" aria-label="Mes siguiente">→</button>
       </div>
       <div id="save-status" class="save-status">Guardado automático activo</div>
       <div id="month-comparison" class="comparison-chip">Sin datos del mes anterior</div>
+      <div class="data-actions">
+        <button id="export-data" class="btn btn-ghost" type="button">Exportar datos</button>
+        <button id="import-data" class="btn btn-ghost" type="button">Importar datos</button>
+        <input id="import-file" type="file" accept="application/json" class="hide" aria-label="Elegir archivo de backup" />
+      </div>
     </section>
 
     <main>
@@ -74,6 +82,7 @@
               <label class="field"><span id="account-label">Cuenta</span><select id="transaction-account"></select></label>
               <label class="field hide" id="to-account-field"><span>Cuenta destino</span><select id="transaction-to-account"></select></label>
               <label class="check-field" id="recurring-field"><input id="transaction-recurring" type="checkbox" /><span>♻ Movimiento recurrente</span></label>
+              <p id="transaction-error" class="form-error hide span-2" role="alert"></p>
               <div class="form-actions span-2"><button class="btn btn-primary" type="submit" id="save-transaction">Agregar movimiento</button><button class="btn btn-ghost hide" type="button" id="cancel-edit">Cancelar edición</button></div>
             </form>
           </section>
@@ -99,7 +108,7 @@
 
         <aside class="side-column">
           <section class="panel section-card sticky-card">
-            <div class="section-heading"><div><span class="section-kicker">Cuentas</span><h2>Billeteras</h2></div><button id="add-account" class="icon-btn" type="button">+</button></div>
+            <div class="section-heading"><div><span class="section-kicker">Cuentas</span><h2>Billeteras</h2></div><button id="add-account" class="icon-btn" type="button" aria-label="Agregar cuenta">+</button></div>
             <div id="accounts-list" class="accounts-list"></div>
           </section>
 
@@ -128,7 +137,7 @@
 
   <dialog id="account-dialog" class="modal">
     <form id="account-form" method="dialog" class="modal-card">
-      <div class="section-heading"><div><span class="section-kicker">Cuenta</span><h2>Nueva billetera</h2></div><button type="button" class="modal-close" data-close="account-dialog">×</button></div>
+      <div class="section-heading"><div><span class="section-kicker">Cuenta</span><h2>Nueva billetera</h2></div><button type="button" class="modal-close" data-close="account-dialog" aria-label="Cerrar">×</button></div>
       <label class="field"><span>Nombre</span><input id="account-name" maxlength="30" placeholder="Ej: Mercado Pago" required /></label>
       <label class="field"><span>Saldo inicial</span><input id="account-opening" class="currency-input" inputmode="numeric" placeholder="$0" /></label>
       <button class="btn btn-primary" type="submit">Crear cuenta</button>
@@ -137,12 +146,17 @@
 
   <dialog id="category-dialog" class="modal">
     <form id="category-form" method="dialog" class="modal-card">
-      <div class="section-heading"><div><span class="section-kicker">Presupuesto</span><h2>Nueva categoría</h2></div><button type="button" class="modal-close" data-close="category-dialog">×</button></div>
+      <div class="section-heading"><div><span class="section-kicker">Presupuesto</span><h2>Nueva categoría</h2></div><button type="button" class="modal-close" data-close="category-dialog" aria-label="Cerrar">×</button></div>
       <label class="field"><span>Nombre</span><input id="category-name" maxlength="28" placeholder="Ej: Gimnasio" required /></label>
       <label class="field"><span>Límite mensual</span><input id="category-limit" class="currency-input" inputmode="numeric" placeholder="$50.000" /></label>
       <button class="btn btn-primary" type="submit">Agregar categoría</button>
     </form>
   </dialog>
+
+  <div id="toast" class="toast hide" role="status" aria-live="polite">
+    <span id="toast-message"></span>
+    <button id="toast-undo" class="btn btn-ghost hide" type="button">Deshacer</button>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="script.js"></script>
