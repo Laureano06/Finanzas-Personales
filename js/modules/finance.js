@@ -204,7 +204,7 @@ function renderMovements() {
       return `<article class="movement-item ${t.type}"><div class="movement-icon">${sign}</div><div class="movement-main"><strong>${esc(t.description)}</strong><small>${t.date
         .split('-')
         .reverse()
-        .join('/')} · ${esc(meta)}${t.recurring ? ' · ♻' : ''}${installmentBadge}</small></div><div class="movement-side"><strong class="${cls}">${sign === '↔' ? '' : sign}${money(
+        .join('/')} · ${esc(meta)}${t.recurring ? ' · Recurrente' : ''}${installmentBadge}</small></div><div class="movement-side"><strong class="${cls}">${sign === '↔' ? '' : sign}${money(
         t.amount
       )}</strong><div class="movement-actions">${actions}</div></div></article>`;
     })

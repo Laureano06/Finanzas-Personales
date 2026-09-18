@@ -20,21 +20,21 @@
         <div class="hero-badge">$</div>
         <span>Panel Personal</span>
       </div>
-      <button id="search-trigger" class="nav-link" type="button"><span class="nav-icon">🔍</span><span>Buscar</span></button>
-      <button class="nav-link" type="button" data-nav-link="home"><span class="nav-icon">🏠</span><span>Inicio</span></button>
-      <button class="nav-link" type="button" data-nav-link="finanzas"><span class="nav-icon">💰</span><span>Finanzas</span></button>
-      <button class="nav-link" type="button" data-nav-link="recordatorios"><span class="nav-icon">✓</span><span>Recordatorios</span></button>
-      <button class="nav-link" type="button" data-nav-link="calendario"><span class="nav-icon">📅</span><span>Calendario</span></button>
-      <button class="nav-link" type="button" data-nav-link="configuracion"><span class="nav-icon">⚙️</span><span>Configuración</span></button>
+      <button id="search-trigger" class="nav-link" type="button"><span>Buscar</span></button>
+      <button class="nav-link" type="button" data-nav-link="home"><span>Inicio</span></button>
+      <button class="nav-link" type="button" data-nav-link="finanzas"><span>Finanzas</span></button>
+      <button class="nav-link" type="button" data-nav-link="recordatorios"><span>Recordatorios</span></button>
+      <button class="nav-link" type="button" data-nav-link="calendario"><span>Calendario</span></button>
+      <button class="nav-link" type="button" data-nav-link="configuracion"><span>Configuración</span></button>
     </nav>
 
     <div class="app-body">
       <header class="topbar">
-        <button id="mobile-menu-toggle" class="icon-btn nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+        <button id="mobile-menu-toggle" class="icon-btn-text nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">Menú</button>
         <span class="topbar-title">Panel Personal</span>
         <div class="topbar-actions">
-          <button id="search-trigger-mobile" class="icon-btn" type="button" aria-label="Buscar">🔍</button>
-          <button id="theme-toggle" class="icon-btn" type="button" aria-label="Cambiar a tema claro">🌙</button>
+          <button id="search-trigger-mobile" class="icon-btn-text" type="button" aria-label="Buscar">Buscar</button>
+          <button id="theme-toggle" class="icon-btn-text" type="button" aria-label="Cambiar a tema claro">Oscuro</button>
         </div>
       </header>
 
@@ -50,22 +50,18 @@
 
           <div class="module-grid">
             <button class="module-card" type="button" data-nav="finanzas">
-              <span class="module-icon">💰</span>
               <strong>Finanzas</strong>
               <p>Controlá ingresos, gastos, cuentas y presupuestos.</p>
             </button>
             <button class="module-card" type="button" data-nav="recordatorios">
-              <span class="module-icon">✓</span>
               <strong>Recordatorios</strong>
               <p>Organizá tareas y cosas que no querés olvidar.</p>
             </button>
             <button class="module-card" type="button" data-nav="calendario">
-              <span class="module-icon">📅</span>
               <strong>Calendario</strong>
               <p>Visualizá tus próximos eventos.</p>
             </button>
             <button class="module-card" type="button" data-nav="configuracion">
-              <span class="module-icon">⚙️</span>
               <strong>Configuración</strong>
               <p>Backup, tema, notificaciones y más.</p>
             </button>
@@ -178,7 +174,7 @@
                   <label class="field hide" id="card-field"><span>Tarjeta</span><select id="transaction-card"></select></label>
                   <label class="field hide" id="to-account-field"><span>Cuenta destino</span><select id="transaction-to-account"></select></label>
                   <label class="field" id="installments-field"><span>Cuotas</span><input id="transaction-installments" type="number" min="1" max="24" value="1" /></label>
-                  <label class="check-field" id="recurring-field"><input id="transaction-recurring" type="checkbox" /><span>♻ Movimiento recurrente</span></label>
+                  <label class="check-field" id="recurring-field"><input id="transaction-recurring" type="checkbox" /><span>Movimiento recurrente</span></label>
                   <p id="transaction-error" class="form-error hide span-2" role="alert"></p>
                   <div class="form-actions span-2"><button class="btn btn-primary" type="submit" id="save-transaction">Agregar movimiento</button><button class="btn btn-ghost hide" type="button" id="cancel-edit">Cancelar edición</button></div>
                 </form>
@@ -376,11 +372,11 @@
     </div>
 
     <nav class="bottom-nav" aria-label="Navegación móvil">
-      <button class="nav-link" type="button" data-nav-link="home"><span class="nav-icon">🏠</span><span>Inicio</span></button>
-      <button class="nav-link" type="button" data-nav-link="finanzas"><span class="nav-icon">💰</span><span>Finanzas</span></button>
-      <button class="nav-link" type="button" data-nav-link="recordatorios"><span class="nav-icon">✓</span><span>Tareas</span></button>
-      <button class="nav-link" type="button" data-nav-link="calendario"><span class="nav-icon">📅</span><span>Calendario</span></button>
-      <button class="nav-link" type="button" data-nav-link="configuracion"><span class="nav-icon">⚙️</span><span>Ajustes</span></button>
+      <button class="nav-link" type="button" data-nav-link="home"><span>Inicio</span></button>
+      <button class="nav-link" type="button" data-nav-link="finanzas"><span>Finanzas</span></button>
+      <button class="nav-link" type="button" data-nav-link="recordatorios"><span>Tareas</span></button>
+      <button class="nav-link" type="button" data-nav-link="calendario"><span>Calendario</span></button>
+      <button class="nav-link" type="button" data-nav-link="configuracion"><span>Ajustes</span></button>
     </nav>
 
     <button id="quickadd-fab" class="fab" type="button" aria-label="Agregar rápido" aria-expanded="false" aria-haspopup="true">+</button>

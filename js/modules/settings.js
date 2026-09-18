@@ -12,7 +12,7 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const btn = $('theme-toggle');
   if (btn) {
-    btn.textContent = theme === 'light' ? '☀' : '🌙';
+    btn.textContent = theme === 'light' ? 'Claro' : 'Oscuro';
     btn.setAttribute('aria-label', theme === 'light' ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
   }
   const select = $('settings-theme');

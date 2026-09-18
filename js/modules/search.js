@@ -9,12 +9,12 @@ import { getAllDebts } from './debts.js';
 import { $, esc } from '../utils/dom.js';
 
 const KIND_META = {
-  account: { icon: '🏦', label: 'Cuenta' },
-  card: { icon: '💳', label: 'Tarjeta' },
-  subscription: { icon: '🔁', label: 'Suscripción' },
-  transaction: { icon: '💸', label: 'Movimiento' },
-  reminder: { icon: '✓', label: 'Recordatorio' },
-  debt: { icon: '🤝', label: 'Deuda' },
+  account: { label: 'Cuenta' },
+  card: { label: 'Tarjeta' },
+  subscription: { label: 'Suscripción' },
+  transaction: { label: 'Movimiento' },
+  reminder: { label: 'Recordatorio' },
+  debt: { label: 'Deuda' },
 };
 
 let debounceTimer = null;
@@ -52,7 +52,6 @@ function renderResults(query) {
     .map(
       (r, i) =>
         `<button type="button" class="search-result" data-search-result="${i}">
-          <span class="search-result-icon">${KIND_META[r.kind].icon}</span>
           <span class="search-result-main"><strong>${esc(r.title)}</strong><small>${esc(r.subtitle)}</small></span>
           <span class="chip chip-cat">${KIND_META[r.kind].label}</span>
         </button>`
