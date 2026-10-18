@@ -2,6 +2,12 @@
 
 **Live demo:** https://finanzas-personales-xi-ashy.vercel.app
 
+| Home · Inicio | Finances · Finanzas |
+|---|---|
+| ![Home](docs/screenshots/home.png) | ![Finances](docs/screenshots/finance.png) |
+
+<sub>Screenshots use sample data · Las capturas usan datos de ejemplo</sub>
+
 [English](#english) · [Español](#español)
 
 ---
