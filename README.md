@@ -1,10 +1,16 @@
 # Finanzas Personales
 
-A personal finance and reminders app built with **plain JavaScript**: no framework, no build step.
-
 **Live demo:** https://finanzas-personales-xi-ashy.vercel.app
 
-## Features
+[English](#english) · [Español](#español)
+
+---
+
+## English
+
+A personal finance and reminders app built with **plain JavaScript**: no framework, no build step.
+
+### Features
 
 - Income, expenses and transfers across multiple accounts (cash, bank, Mercado Pago)
 - Monthly budgets by category
@@ -14,7 +20,7 @@ A personal finance and reminders app built with **plain JavaScript**: no framewo
 - Global search, quick-add and light/dark theme
 - All data stays in the browser (localStorage), with versioned migrations from older formats
 
-## How it's built
+### How it's built
 
 The app is a single page split into ES modules, with a small architecture written from scratch:
 
@@ -28,7 +34,7 @@ js/
   utils/         dates, currency formatting, DOM helpers, id generation
 ```
 
-## Run locally
+### Run locally
 
 No install needed. Serve the folder with any static server:
 
@@ -36,6 +42,48 @@ No install needed. Serve the folder with any static server:
 npx serve .
 ```
 
-## Tech
+### Tech
+
+JavaScript (ES modules) · HTML · CSS · localStorage · Notifications API
+
+---
+
+## Español
+
+App de finanzas personales y recordatorios hecha con **JavaScript puro**: sin frameworks y sin paso de build.
+
+### Funcionalidades
+
+- Ingresos, gastos y transferencias entre varias cuentas (efectivo, banco, Mercado Pago)
+- Presupuestos mensuales por categoría
+- Seguimiento de tarjetas de crédito, suscripciones y deudas
+- Recordatorios, calendario y notificaciones de vencimientos
+- Importación y exportación en CSV
+- Búsqueda global, carga rápida y tema claro/oscuro
+- Todos los datos quedan en el navegador (localStorage), con migraciones versionadas desde formatos anteriores
+
+### Cómo está hecha
+
+La app es una sola página dividida en ES modules, con una arquitectura chica escrita desde cero:
+
+```
+js/
+  router.js      router de vistas: muestra/oculta secciones [data-view], inicializa cada vista al entrar
+  state.js       store central con subscribe/persist (patrón observer)
+  storage.js     persistencia en localStorage + migración desde versiones anteriores del esquema
+  modules/       un módulo por funcionalidad (finanzas, tarjetas, deudas, recordatorios, calendario...)
+  components/    piezas de interfaz reutilizables (toast, diálogo de confirmación, carga rápida)
+  utils/         fechas, formato de moneda, helpers del DOM, generación de ids
+```
+
+### Cómo correrla
+
+No hace falta instalar nada. Serví la carpeta con cualquier servidor estático:
+
+```bash
+npx serve .
+```
+
+### Tecnologías
 
 JavaScript (ES modules) · HTML · CSS · localStorage · Notifications API
